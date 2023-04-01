@@ -23,12 +23,15 @@ https://www.bilibili.com/video/BV1Rm4y1d7Ai/?spm_id_from=333.999.0.0
 
 ## Citation
 ~~~
-@article{ESVIO,
-  title={ESVIO: Event-based Stereo Visual Inertial Odometry},
-  author={Chen, Peiyu and Guan, Weipeng and Lu, Peng},
-  journal={arXiv preprint arXiv:2212.13184},
-  year={2022}
-}
+@ARTICLE{AeCoM,
+  author={Peng, Rui and Wang, Zehao and Lu, Peng},
+  journal={IEEE Transactions on Systems, Man, and Cybernetics: Systems}, 
+  title={AeCoM: An Aerial Continuum Manipulator With IMU-Based Kinematic Modeling and Tendon-Slacking Prevention}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={1-13},
+  doi={10.1109/TSMC.2023.3257166}}
 ~~~
 
   
