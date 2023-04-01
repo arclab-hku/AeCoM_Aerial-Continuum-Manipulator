@@ -15,37 +15,37 @@ void Initial_UART3(unsigned long bound)
 		GPIO_InitTypeDef GPIO_InitStructure;
 		USART_InitTypeDef USART_InitStructure;
 
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE); // GPIOB??
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);  
 		RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3,ENABLE);
 
-		USART_DeInit(USART3);  //????3
+		USART_DeInit(USART3);  
 		//USART3_TX   PB.10
 		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10; //PB.10
 		GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP; //??????
-		GPIO_Init(GPIOB, &GPIO_InitStructure); //???PB10
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;  
+		GPIO_Init(GPIOB, &GPIO_InitStructure);  
 
 		//USART3_RX    PB.11
 		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_11;
-		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;//????
-		GPIO_Init(GPIOB, &GPIO_InitStructure);  //???PB11
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING; 
+		GPIO_Init(GPIOB, &GPIO_InitStructure);  
 
 		NVIC_InitStructure.NVIC_IRQChannel = USART3_IRQn;
-		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority= 2 ;// 2
-		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;    // 1
-		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;     //IRQ????
-		NVIC_Init(&NVIC_InitStructure); //??????????VIC???
+		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority= 2 ; 
+		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;    
+		NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;      
+		NVIC_Init(&NVIC_InitStructure);  
 
-		USART_InitStructure.USART_BaudRate = bound;//?????9600;
-		USART_InitStructure.USART_WordLength = USART_WordLength_8b;//???8?????
-		USART_InitStructure.USART_StopBits = USART_StopBits_1;//?????
-		USART_InitStructure.USART_Parity = USART_Parity_No;//??????
-		USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;//????????
-		USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx; //????
+		USART_InitStructure.USART_BaudRate = bound; 
+		USART_InitStructure.USART_WordLength = USART_WordLength_8b; 
+		USART_InitStructure.USART_StopBits = USART_StopBits_1; 
+		USART_InitStructure.USART_Parity = USART_Parity_No; 
+		USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None; 
+		USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;  
 
-		USART_Init(USART3, &USART_InitStructure); //?????
-		USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);//????
-		USART_Cmd(USART3, ENABLE);                    //???? 
+		USART_Init(USART3, &USART_InitStructure);  
+		USART_ITConfig(USART3, USART_IT_RXNE, ENABLE); 
+		USART_Cmd(USART3, ENABLE);                   
 
 }
 
@@ -54,7 +54,7 @@ struct Motor_Encoder     mot_Encoder;
 struct Actutation_Length act_Length;
 
 unsigned char last_data = 0x00;
-unsigned char act_rxbuf[6] = {0x00};// Ω” ’ ˝æ›µƒª∫≥Â«¯
+unsigned char act_rxbuf[6] = {0x00};// Êé•Êî∂Êï∞ÊçÆÁöÑÁºìÂÜ≤Âå∫
 
 int act_data_receive_flag = 0;
 int act_buf_count = 0;
@@ -77,10 +77,10 @@ void USART3_IRQHandler(void)
 		{
 			data = USART_ReceiveData(USART3);
  
-			// ø™ ºΩ” ’ ˝æ›
+			// ÂºÄÂßãÊé•Êî∂Êï∞ÊçÆ
 			if(act_data_receive_flag)
 			{
-				// º∆À„–£—È∫Õ
+				// ËÆ°ÁÆóÊ†°È™åÂíå
 				unsigned char temp_checksum = 0x00;
 				for(int i = 0; i < act_buf_count ; i++)
 				{
@@ -88,21 +88,21 @@ void USART3_IRQHandler(void)
 				}
 				unsigned char checksum = ~temp_checksum;
 	
-				// ’‚¿Ôµƒ≈–∂œ∫‹÷ÿ“™ £¨ »Áπ˚ ˝◊ÈÀ˜“˝÷µ≥¨≥ˆ ˝◊È±æ…Ìµƒ≥§∂»6 £¨æÕª·µº÷¬ø®À¿≥Ã–Ú		
+				// ËøôÈáåÁöÑÂà§Êñ≠ÂæàÈáçË¶Å Ôºå Â¶ÇÊûúÊï∞ÁªÑÁ¥¢ÂºïÂÄºË∂ÖÂá∫Êï∞ÁªÑÊú¨Ë∫´ÁöÑÈïøÂ∫¶6 ÔºåÂ∞±‰ºöÂØºËá¥Âç°Ê≠ªÁ®ãÂ∫è		
 				if(act_buf_count < 6)
 				{
-					// ∏¯ ˝◊È∏≥÷µ
+					// ÁªôÊï∞ÁªÑËµãÂÄº
 					act_rxbuf[act_buf_count] = data;
 					act_buf_count++;
 
-					// ‘Ú–£—È∫Õ∆•≈‰£¨ ’µΩ“ª∏ˆÕÍ’˚ ˝æ›∞¸
+					// ÂàôÊ†°È™åÂíåÂåπÈÖçÔºåÊî∂Âà∞‰∏Ä‰∏™ÂÆåÊï¥Êï∞ÊçÆÂåÖ
 					if(checksum == data) 
 					{
-						// Ω‚Œˆ ˝æ›∞¸£∫
+						// Ëß£ÊûêÊï∞ÊçÆÂåÖÔºö
 						if(act_buf_count - 1 == effect_data_length)
 						{
-							// ∏ﬂŒª‘⁄∫Û£¨µÕŒª‘⁄«∞£¨∫œ≤¢¡Ω∏ˆ◊÷Ω⁄≥…“ª∏ˆ ˝
-							// µ√µΩµÁª˙≈§æÿtorque   5-8
+							// È´ò‰ΩçÂú®ÂêéÔºå‰Ωé‰ΩçÂú®ÂâçÔºåÂêàÂπ∂‰∏§‰∏™Â≠óËäÇÊàê‰∏Ä‰∏™Êï∞
+							// ÂæóÂà∞ÁîµÊú∫Êâ≠Áü©torque   5-8
 							if(act_timer_reset_flag >= 5 && act_timer_reset_flag <= 8)
 							{
 								switch(act_rxbuf[0])
@@ -124,11 +124,11 @@ void USART3_IRQHandler(void)
 									break;							
 								}
 							}							
-							// ≥¨≥ˆ◊Ó¥Û≈§æÿ÷µ£¨–Ë“™º”∏ˆ∏∫∫≈
+							// Ë∂ÖÂá∫ÊúÄÂ§ßÊâ≠Áü©ÂÄºÔºåÈúÄË¶ÅÂä†‰∏™Ë¥üÂè∑
 							torque_reshape();
 							
 							
-							// µ√µΩµÁª˙±‡¬Î∆˜ ˝÷µ£∫ 9-12
+							// ÂæóÂà∞ÁîµÊú∫ÁºñÁ†ÅÂô®Êï∞ÂÄºÔºö 9-12
 							if(act_timer_reset_flag >= 9 && act_timer_reset_flag <= 12)
 							{
 								switch(act_rxbuf[0])
@@ -156,11 +156,11 @@ void USART3_IRQHandler(void)
 						
 					
 						///////////////////////////////////////////////////////////////////////
-						// ∏¥Œª±Í÷æŒª
+						// Â§ç‰ΩçÊ†áÂøó‰Ωç
 						act_data_receive_flag = 0;
 						act_buf_count = 0;
 						
-						// ˝◊È“≤“™»´≤ø«Â¡„£°  
+						//Êï∞ÁªÑ‰πüË¶ÅÂÖ®ÈÉ®Ê∏ÖÈõ∂ÔºÅ  
 						for(int i = 0; i < 6; i++)
 						{
 							act_rxbuf[i] = 0x00;
@@ -169,14 +169,14 @@ void USART3_IRQHandler(void)
 				}
 				else
 				{
-					// ∏¥Œª±Í÷æŒª
+					// Â§ç‰ΩçÊ†áÂøó‰Ωç
 					act_data_receive_flag = 0;
 					act_buf_count = 0;
 				}
 			
 			}
 			
-			// ≈–∂œ∞¸Õ∑µΩ¿¥£∫0xFF 0xFF
+			// Âà§Êñ≠ÂåÖÂ§¥Âà∞Êù•Ôºö0xFF 0xFF
 			if(data == 0xFF && last_data == 0xFF)
 			{	
 				act_data_receive_flag = 1;
@@ -219,7 +219,7 @@ float Encoder_1_cnt     = 0, Encoder_2_cnt     = 0, Encoder_3_cnt     = 0, Encod
 float Encoder_1_last    = 0, Encoder_2_last    = 0, Encoder_3_last    = 0, Encoder_4_last    = 0;
 float Encoder_1         = 0, Encoder_2         = 0, Encoder_3         = 0, Encoder_4         = 0;
 
-//∏˘æ›µÁª˙±‡¬Î∆˜«ÛΩ‚µÁª˙◊™∂Øµƒ◊‹––≥Ã£∫
+//Ê†πÊçÆÁîµÊú∫ÁºñÁ†ÅÂô®Ê±ÇËß£ÁîµÊú∫ËΩ¨Âä®ÁöÑÊÄªË°åÁ®ãÔºö
 void encoder_distance(void)
 {
 	if(manipulator_initial_flag == 0 )
@@ -278,7 +278,7 @@ void encoder_distance(void)
 	Encoder_3_last = mot_Encoder.Encoder_3;
 	Encoder_4_last = mot_Encoder.Encoder_4;
 	
-	//∏˘æ›◊‹––≥Ã¿¥«ÛΩ‚œﬂ≥§µƒ±‰ªØ£∫
+	//Ê†πÊçÆÊÄªË°åÁ®ãÊù•Ê±ÇËß£Á∫øÈïøÁöÑÂèòÂåñÔºö
 	act_Length.Length_1 = 1.0 * Encoder_1_length / cir_limit * rolly_dia * pi;
 	act_Length.Length_2 = 1.0 * Encoder_2_length / cir_limit * rolly_dia * pi;
 	act_Length.Length_3 = 1.0 * Encoder_3_length / cir_limit * rolly_dia * pi;
@@ -299,7 +299,7 @@ void SendCmd_to_Actuation(struct Actuation_speed act_speed)
 {
 	switch(act_timer_reset_flag)
 	{
-		// ∑¢ÀÕÀŸ∂»øÿ÷∆÷∏¡Ó
+		// ÂèëÈÄÅÈÄüÂ∫¶ÊéßÂà∂Êåá‰ª§
 	  case 1:
 			Actuation_Cmd_generation(0x01, act_speed.motor_1 );
 		break;
@@ -316,8 +316,8 @@ void SendCmd_to_Actuation(struct Actuation_speed act_speed)
 			Actuation_Cmd_generation(0x04, act_speed.motor_4 );
 		break;			
  	
-		// «ÛµÁª˙≈§æÿ ˝÷µ   0x3C
-		// «ÛµÁª˙±‡¬Î∆˜ ˝÷µ 0x38
+		// Ê±ÇÁîµÊú∫Êâ≠Áü©Êï∞ÂÄº   0x3C
+		// Ê±ÇÁîµÊú∫ÁºñÁ†ÅÂô®Êï∞ÂÄº 0x38
 	
 		case 5:    
 			Read_info_Actuation( 0x01, 0x3C );
