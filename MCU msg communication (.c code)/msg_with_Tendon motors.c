@@ -25,7 +25,7 @@ void Initial_UART3(unsigned long bound)
 		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;  
 		GPIO_Init(GPIOB, &GPIO_InitStructure);  
 
-		//USART3_RX    PB.11
+		//USART3_RX    PB.11  
 		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_11;
 		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING; 
 		GPIO_Init(GPIOB, &GPIO_InitStructure);  
