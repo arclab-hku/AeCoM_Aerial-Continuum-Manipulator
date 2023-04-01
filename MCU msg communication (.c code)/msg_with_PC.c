@@ -115,10 +115,10 @@ void USART1_IRQHandler(void)
 					{
 						rxbuf_rec_flag = 1;
 						
-						euler_ang_compute.Eroll  			= (rxbuf[2] << 8) | rxbuf[1];
-						euler_ang_compute.Epitch 			= (rxbuf[4] << 8) | rxbuf[3];
-						gripper_ctrl				    		  = (rxbuf[6] << 8) | rxbuf[5];					
-						landing_ctrl					 		    = (rxbuf[8] << 8) | rxbuf[7];
+						euler_ang_compute.Eroll  	= (rxbuf[2] << 8) | rxbuf[1];
+						euler_ang_compute.Epitch 	= (rxbuf[4] << 8) | rxbuf[3];
+						gripper_ctrl		        = (rxbuf[6] << 8) | rxbuf[5];					
+						landing_ctrl			= (rxbuf[8] << 8) | rxbuf[7];
 						
 						if(euler_ang_compute.Eroll  > 30000)
 							euler_ang_compute.Eroll  = euler_ang_compute.Eroll  - 65536;
