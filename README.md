@@ -2,6 +2,8 @@
 
 **R. Peng**, Z. Wang and P. Lu, "AeCoM: An Aerial Continuum Manipulator With IMU-Based Kinematic Modeling and Tendon-Slacking Prevention," in IEEE Transactions on Systems, Man, and Cybernetics: Systems, doi: 10.1109/TSMC.2023.3257166.
 
+https://ieeexplore.ieee.org/document/10081306
+
 ## System Architecture
 
 **Mechanism:**
