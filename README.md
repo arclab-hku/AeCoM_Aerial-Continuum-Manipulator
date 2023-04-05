@@ -23,6 +23,7 @@ https://www.bilibili.com/video/BV1Rm4y1d7Ai/?spm_id_from=333.999.0.0
 ## MCU Communication Code
 
 msg with PC -> USART1  A9 A10
+
 msg with tendon motors -> USART3  B10 B11
 
 ## Citation
