@@ -44,4 +44,5 @@ msg with tendon motors -> USART3  B10 B11
 
   
 ## LICENSE
-This repositorie is licensed under MIT license. International License and is provided for academic purpose. If you are interested in our project for commercial purposes, please contact [Dr. Peng LU](https://arclab.hku.hk/People.html) or pengrui-rio@connect.hku.hk for further communication.
+This repository is licensed under MIT license. International License and is provided for academic purposes. 
+If you are interested in our project for commercial purposes, please contact [Dr. Peng LU](https://arclab.hku.hk/People.html) or pengrui-rio@connect.hku.hk for further communication.
