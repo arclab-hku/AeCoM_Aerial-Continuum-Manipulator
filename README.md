@@ -28,15 +28,18 @@ msg with tendon motors -> USART3  B10 B11
 
 ## Citation
 ~~~
-@ARTICLE{AeCoM,
+@article
+{
+  peng2023aecom,
+  title={AECOM: An aerial continuum manipulator with IMU-based kinematic modeling and tendon-slacking prevention},
   author={Peng, Rui and Wang, Zehao and Lu, Peng},
-  journal={IEEE Transactions on Systems, Man, and Cybernetics: Systems}, 
-  title={AeCoM: An Aerial Continuum Manipulator With IMU-Based Kinematic Modeling and Tendon-Slacking Prevention}, 
+  journal={IEEE Transactions on Systems, Man, and Cybernetics: Systems},
+  volume={53},
+  number={8},
+  pages={4740--4752},
   year={2023},
-  volume={},
-  number={},
-  pages={1-13},
-  doi={10.1109/TSMC.2023.3257166}}
+  publisher={IEEE}
+}
 ~~~
 
   
